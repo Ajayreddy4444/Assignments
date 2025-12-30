@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="add" onclick="addStudent()">add student</button>
+    <button id="show" onclick="showStudents()">show students data</button>\
+    <button id="display60" onclick="display60()">know who got more than 60 marks</button>
+    <button id="count" onclick="count()">count each dept</button>
+    <button id="highest" onclick="knowHighest()">know who got highest marks</button>
+    <button id="display" onclick="displayAsTable()">Display as table</button>
+    <button id="average" onclick="average()"> calculate Average marks</button>
+    <button id="displaycse" onclick="displayCSE()">Display CSE Students</button>
+    <ul id="list1"></ul>
+    <table id="table1" border="1"" cellspacing="0"> </table>
+
+</body>
+    <script>
+        let students=[
+            { id: 1, name: "Amit", marks: 78, department: "CSE" },
+            { id: 2, name: "Priya", marks: 92, department: "ECE" },
+            { id: 3, name: "Rahul", marks: 45, department: "MECH" },
+            { id: 4, name: "Sneha", marks: 66, department: "CSE" },
+            { id: 5, name: "Kiran", marks: 88, department: "ECE" }
+        ]
+        
+        
+        
+        function addStudent()
+        {
+            let sid=prompt("enter student id");
+            let sname=prompt("enter student name");
+            let smarks=prompt("enter student marks");
+            let sdept=prompt("enter student department");
+            
+            students.push({id:sid,name:sname,marks:smarks,department:sdept});
+            
+        }
+        
+        let uelement=document.getElementById("list1");
+
+        function showStudents()
+        {
+            
+            for(let item of students)
+            {
+                const listitem=document.createElement("li");
+                listitem.textContent=item.name;
+                uelement.appendChild(listitem);
+            }
+        }
+
+        function display60()
+        {
+            let st=students.filter(a=>
+                a.marks>60
+            );
+            for(let item of st)
+            {
+                document.write(`${item.id}-${item.name}-${item.marks}-${item.department}<br>`);
+            }
+        }
+
+        function count()
+        {
+            let depts=["CSE","ECE","MECH","CIVIL","EEE"];
+            for(let i of depts)
+            {
+                let count=0;
+                for(let j of students)
+                {
+                    if(i===j.department)
+                    count++;
+                }
+                document.write(`${i} - ${count}<br>`);
+            }
+        }
+
+        function knowHighest()
+        {
+            let sorted=students.sort((a,b)=>b.marks-a.marks);
+            let high=sorted[0];
+            document.write(`highest marks ===> ${high.name} - ${high.marks}`);
+        }
+
+        let sample=document.getElementById("table1");
+
+        function displayAsTable()
+        {
+            for(let item of students)
+            {
+            const trow=document.createElement("tr");
+            const tcell1=document.createElement("td");
+            const tcell2=document.createElement("td");
+            const tcell3=document.createElement("td");
+            const tcell4=document.createElement("td");
+
+            
+
+            tcell1.textContent=`${item.id}`;
+            tcell2.textContent=`${item.name}`;
+            tcell3.textContent=`${item.marks}`;
+            tcell4.textContent=`${item.department}`;
+
+            trow.appendChild(tcell1);
+            trow.appendChild(tcell2);
+            trow.appendChild(tcell3);
+            trow.appendChild(tcell4);
+
+            sample.appendChild(trow);
+            }
+            
+        }
+        function average()
+        {
+            let total=students.reduce((a,b)=>a+b.marks,0);
+            let avg=total/students.length;
+            document.write(`Average Marks - ${avg}`);
+        }
+
+        function displayCSE()
+        {
+            let filtered=students.filter(n=>n.department==="CSE")
+            for(let i of filtered)
+            {
+                document.write(`${i.name}<br>`);
+            }
+        }
+        
+    </script>
+</html>
