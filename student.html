@@ -3,132 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Records</title>
 </head>
 <body>
-    <button id="add" onclick="addStudent()">add student</button>
-    <button id="show" onclick="showStudents()">show students data</button>\
-    <button id="display60" onclick="display60()">know who got more than 60 marks</button>
-    <button id="count" onclick="count()">count each dept</button>
-    <button id="highest" onclick="knowHighest()">know who got highest marks</button>
-    <button id="display" onclick="displayAsTable()">Display as table</button>
-    <button id="average" onclick="average()"> calculate Average marks</button>
-    <button id="displaycse" onclick="displayCSE()">Display CSE Students</button>
+    <button onclick="addStudent()">Add New Student</button>
+    <h2>1]. Display all student names in an HTML unordered list.</h2>
     <ul id="list1"></ul>
-    <table id="table1" border="1"" cellspacing="0"> </table>
+
+    <h2>2]. Display only students who scored more than 60 marks.</h2>
+    <div id="display60"></div>
+
+    <h2>3]. Count how many students belong to each department.</h2>
+    <div id="count"></div>
+
+    <h2>4]. Find the student with the highest marks.</h2>
+    <p id="highest"></p>
+
+    <h2>5]. Display students in a table with columns: Name, Marks, Department.</h2>
+    <table id="table1" border="1" cellspacing="0"></table>
+
+    <h2>6]. Calculate the average marks of all students.</h2>
+    <p id="average"></p>
+
+    <h2>7]. Display only CSE students in HTML.</h2>
+    <div id="cse"></div>
+
+    <h2>8]. Sort students by marks in descending order.</h2>
+    <div id="descending"></div>
+
+    <h2>9]. Highlight students who failed (marks < 50) in red color.</h2>
+    <ul id="list2"></ul>
 
 </body>
-    <script>
-        let students=[
-            { id: 1, name: "Amit", marks: 78, department: "CSE" },
-            { id: 2, name: "Priya", marks: 92, department: "ECE" },
-            { id: 3, name: "Rahul", marks: 45, department: "MECH" },
-            { id: 4, name: "Sneha", marks: 66, department: "CSE" },
-            { id: 5, name: "Kiran", marks: 88, department: "ECE" }
-        ]
-        
-        
-        
-        function addStudent()
-        {
-            let sid=prompt("enter student id");
-            let sname=prompt("enter student name");
-            let smarks=prompt("enter student marks");
-            let sdept=prompt("enter student department");
-            
-            students.push({id:sid,name:sname,marks:smarks,department:sdept});
-            
+<script>
+    let students=[
+        { id: 1, name: "Amit", marks: 78, department: "CSE" },
+        { id: 2, name: "Priya", marks: 92, department: "ECE" },
+        { id: 3, name: "Rahul", marks: 45, department: "MECH" },
+        { id: 4, name: "Sneha", marks: 66, department: "CSE" },
+        { id: 5, name: "Kiran", marks: 88, department: "ECE" }
+    ];
+
+    //Display all student names in an HTML unordered list.
+    let uelement=document.getElementById("list1");
+    for(let item of students){
+        let li=document.createElement("li");
+        li.textContent=`${item.id} - ${item.name} - ${item.marks} - ${item.department}`;
+        uelement.appendChild(li);
+    }
+
+    //Display only students who scored more than 60 marks.
+    let p1=document.getElementById("display60");
+    let st=students.filter(a=>a.marks>60);
+    for(let item of st){
+        let p=document.createElement("p");
+        p.textContent=`${item.id} - ${item.name} - ${item.marks} - ${item.department}`;
+        p1.appendChild(p);
+    }
+
+    //Count how many students belong to each department.
+    let depts=["CSE","ECE","MECH","CIVIL","EEE"];
+    let p2=document.getElementById("count");
+    for(let d of depts){
+        let count=students.filter(s => s.department===d).length;
+        let p=document.createElement("p");
+        p.textContent=`${d} - ${count}`;
+        p2.appendChild(p);
+    }
+
+    //Find the student with the highest marks.
+    let high = students.sort((a,b)=>b.marks-a.marks)[0];
+    let p=document.getElementById("highest")
+    p.textContent = `${high.name} - ${high.marks}`;
+
+    
+    //Display students in a table with columns: Name, Marks, Department.
+    let sample=document.getElementById("table1"); 
+     for(let item of students) 
+     { 
+        const trow=document.createElement("tr"); 
+        const tcell1=document.createElement("td"); 
+        const tcell2=document.createElement("td");
+        const tcell3=document.createElement("td"); 
+        const tcell4=document.createElement("td");
+        tcell1.textContent=`${item.id}`;
+        tcell2.textContent=`${item.name}`;
+        tcell3.textContent=`${item.marks}`;
+        tcell4.textContent=`${item.department}`;
+        trow.appendChild(tcell1); 
+        trow.appendChild(tcell2);
+        trow.appendChild(tcell3);
+        trow.appendChild(tcell4);
+        sample.appendChild(trow);
+     }
+
+    //Calculate the average marks of all students.
+    let total = students.reduce((sum,s)=>sum+s.marks,0);
+    let avg = total/students.length;
+    document.getElementById("average").textContent = `Average marks - ${avg}`;
+
+    //Display only CSE students in HTML.
+    let cse = document.getElementById("cse");
+    let onlyCSE = students.filter(s=>s.department==="CSE");
+    for(let s of onlyCSE){
+        let p=document.createElement("p");
+        p.textContent=s.name;
+        cse.appendChild(p);
+    }
+
+    //Sort students by marks in descending order.
+    let desc = document.getElementById("descending");
+    let sorted = students.sort((a,b)=>b.marks-a.marks);
+    for(let s of sorted){
+        let p=document.createElement("p");
+        p.textContent = `${s.id} - ${s.name} - ${s.marks} - ${s.department}`;
+        desc.appendChild(p);
+    }
+
+    //Add a new student object and update the HTML list.
+    function updateStudentList() {
+        let uelement = document.getElementById("list1");
+        uelement.innerHTML = ""; 
+
+        for(let s of students){
+            let li = document.createElement("li");
+            li.textContent = `${s.id} - ${s.name} - ${s.marks} - ${s.department}`;
+            uelement.appendChild(li);
         }
-        
-        let uelement=document.getElementById("list1");
+    }
 
-        function showStudents()
-        {
-            
-            for(let item of students)
-            {
-                const listitem=document.createElement("li");
-                listitem.textContent=item.name;
-                uelement.appendChild(listitem);
-            }
+    function addStudent() {
+        let sid=prompt("enter student id");
+        let sname=prompt("enter student name");
+        let smarks=prompt("enter student marks");
+        let sdept=prompt("enter student department"); 
+        students.push({id:sid,name:sname,marks:smarks,department:sdept}); 
+        updateStudentList();
         }
 
-        function display60()
-        {
-            let st=students.filter(a=>
-                a.marks>60
-            );
-            for(let item of st)
-            {
-                document.write(`${item.id}-${item.name}-${item.marks}-${item.department}<br>`);
-            }
+    //Highlight students who failed (marks < 50) in red color.
+    let uelement2=document.getElementById("list2");
+    for (let s of students) 
+    {
+        let li = document.createElement("li");
+        li.textContent = `${s.id} - ${s.name} - ${s.marks} - ${s.department}`;
+        if (s.marks < 50) {
+            li.style.color = "red"; 
         }
-
-        function count()
-        {
-            let depts=["CSE","ECE","MECH","CIVIL","EEE"];
-            for(let i of depts)
-            {
-                let count=0;
-                for(let j of students)
-                {
-                    if(i===j.department)
-                    count++;
-                }
-                document.write(`${i} - ${count}<br>`);
-            }
-        }
-
-        function knowHighest()
-        {
-            let sorted=students.sort((a,b)=>b.marks-a.marks);
-            let high=sorted[0];
-            document.write(`highest marks ===> ${high.name} - ${high.marks}`);
-        }
-
-        let sample=document.getElementById("table1");
-
-        function displayAsTable()
-        {
-            for(let item of students)
-            {
-            const trow=document.createElement("tr");
-            const tcell1=document.createElement("td");
-            const tcell2=document.createElement("td");
-            const tcell3=document.createElement("td");
-            const tcell4=document.createElement("td");
-
-            
-
-            tcell1.textContent=`${item.id}`;
-            tcell2.textContent=`${item.name}`;
-            tcell3.textContent=`${item.marks}`;
-            tcell4.textContent=`${item.department}`;
-
-            trow.appendChild(tcell1);
-            trow.appendChild(tcell2);
-            trow.appendChild(tcell3);
-            trow.appendChild(tcell4);
-
-            sample.appendChild(trow);
-            }
-            
-        }
-        function average()
-        {
-            let total=students.reduce((a,b)=>a+b.marks,0);
-            let avg=total/students.length;
-            document.write(`Average Marks - ${avg}`);
-        }
-
-        function displayCSE()
-        {
-            let filtered=students.filter(n=>n.department==="CSE")
-            for(let i of filtered)
-            {
-                document.write(`${i.name}<br>`);
-            }
-        }
-        
-    </script>
+        uelement2.appendChild(li);
+    }
+    
+</script>
 </html>
