@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="load-btn" onclick="Load()">Load Latest Launch</button>
+    <p id="para1"></p>
+</body>
+
+    <script>
+
+        let uelement=document.getElementById("para1");
+        function Load()
+        {
+            uelement.innerHTML="Loading......"
+
+            setTimeout(function()
+            {
+                fetch("https://api.spacexdata.com/v4/launches/latest")
+                .then(function success(promise) {
+                    return promise.json();
+                })
+                .then(function(obj){
+                    
+                    uelement.innerHTML="";
+                    let child=document.createElement("p");
+                    child.innerHTML=`${obj.name}`;
+                    uelement.appendChild(child);
+                })
+
+                .catch(function(error){
+                    uelement.innerHTML="Error while Loading.."
+                 })
+            },3000);
+        
+        }
+
+    </script>
+</html>

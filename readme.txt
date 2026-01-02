@@ -1,3 +1,6 @@
+
+//Assignment 1
+
 const students = [
   { id: 1, name: "Amit", marks: 78, department: "CSE" },
   { id: 2, name: "Priya", marks: 92, department: "ECE" },
@@ -16,3 +19,52 @@ Display only CSE students in HTML.
 Sort students by marks in descending order.
 Add a new student object and update the HTML list.
 Highlight students who failed (marks < 50) in red color.
+
+
+
+//Assignment2
+
+Assignment on Promise:
+ 
+Space Launch Information Dashboard
+=====================================
+ 
+ 
+Fetch latest SpaceX launch details
+ 
+Display mission information
+ 
+Handle API errors
+ 
+Show loading status
+ 
+Open API (No Key Required)
+https://api.spacexdata.com/v4/launches/latest
+ 
+Create an HTML page with:
+ 
+Load Latest Launch button
+ 
+Loading message
+ 
+Launch details section
+ 
+On button click:
+ 
+Fetch data using Promise
+ 
+Display:
+ 
+Mission Name
+=========================================================================================================
+ASSIGNMENT -2 Using async / await
+---------------------
+same UI
+ 
+Use:
+ 
+async function
+ 
+await fetch()
+ 
+try / catch
